@@ -53,6 +53,9 @@
         position: absolute;
         bottom: 10px;
         color: inherit;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
     }
 
     footer a {
@@ -65,7 +68,6 @@
         text-decoration: underline;
     }
 
-    /* Toggle button styles */
     .checkbox {
         opacity: 0;
         position: absolute;
@@ -76,15 +78,14 @@
         width: 50px;
         height: 26px;
         border-radius: 50px;
-        position: relative;
+        position: fixed;
+        top: 15px;
+        right: 15px;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 5px;
-        position: fixed;
-        top: 15px;
-        right: 15px;
     }
 
     .fa-moon { color: #f1c40f; }
@@ -108,21 +109,20 @@
 </head>
 <body>
 
-    <!-- Toggle Switch -->
     <input type="checkbox" class="checkbox" id="checkbox">
     <label for="checkbox" class="checkbox-label">
         <i class="fas fa-moon"></i>
         <i class="fas fa-sun"></i>
         <span class="ball"></span>
     </label>
-     crossorigin="anonymous"></script>
+
     <h1>Press In Dier Situations</h1>
     <img src="coffin.jpg" alt="Coffin Image">
     <iframe width="110" height="200" src="https://www.myinstants.com/instant/coffin-dance-meme-31063/embed/" frameborder="0" scrolling="no"></iframe>
 
     <footer>
         <a href="https://linktr.ee/mrbouquet" target="_blank">Made by Mr_Bouquet</a>
-        <a href="https://github.com/mrbouquet69/SoundButton" target="_blank">Open Sorce on Github (Licence May Apply)</a>
+        <a href="https://github.com/mrbouquet69/SoundButton" target="_blank">Open Source on Github (License May Apply)</a>
     </footer>
 
 <script>
