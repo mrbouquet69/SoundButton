@@ -1,151 +1,309 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coffin Button</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Coffin Button with Cookie Consent</title>
+    <style>
+        :root {
+            --bg: #111;
+            --panel: #fff;
+            --text: #111;
+            --muted: #444;
+            --accent: #1a73e8;
+        }
 
-<style>
-:root {
-    color-scheme: light dark;
-}
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+            background: #f6f7f9;
+        }
 
-body {
-    background-color: Canvas;
-    color: CanvasText;
-    font-family: "Segoe UI", Arial, sans-serif;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    transition: background-color 0.4s, color 0.4s;
-}
+        .cookie-overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 9999;
+            padding: 20px;
+        }
 
-body.dark {
-    background-color: #121212;
-    color: #f1f1f1;
-}
+        .cookie-panel {
+            width: 100%;
+            max-width: 480px;
+            background: var(--panel);
+            color: var(--text);
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(21, 21, 21, 0.15);
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-h1 {
-    font-size: 2.2em;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-}
+        .cookie-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
 
-img {
-    width: 220px;
-    height: auto;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    transition: transform 0.3s;
-}
-img:hover {
-    transform: scale(1.03);
-}
+        .cookie-body {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.4;
+            margin-bottom: 18px;
+        }
 
-iframe {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.6);
-    margin-bottom: 25px;
-}
+        .cookie-list {
+            margin: 10px 0 18px 18px;
+            color: var(--muted);
+        }
 
-footer {
-    position: absolute;
-    bottom: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.9em;
-}
+        .cookie-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
 
-footer a {
-    color: inherit;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.2s;
-}
+        .cookie-btn {
+            appearance: none;
+            border: 0;
+            padding: 10px 16px;
+            font-size: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
 
-footer a:hover {
-    color: #ff4757;
-}
+        .cookie-btn-okay {
+            background: var(--accent);
+            color: #fff;
+        }
 
-/* Toggle */
-.checkbox {
-    opacity: 0;
-    position: absolute;
-}
+        .cookie-btn-details {
+            background: transparent;
+            color: var(--muted);
+        }
 
-.checkbox-label {
-    background-color: #222;
-    width: 55px;
-    height: 30px;
-    border-radius: 50px;
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px;
-    box-shadow: 0 0 6px rgba(0,0,0,0.5);
-    transition: background-color 0.3s;
-}
+        @media (max-width:420px) {
+            .cookie-panel {
+                padding: 16px
+            }
 
-.checkbox:checked + .checkbox-label {
-    background-color: #444;
-}
+            .cookie-title {
+                font-size: 16px
+            }
+        }
 
-.fa-moon { color: #f1c40f; font-size: 14px; }
-.fa-sun { color: #f39c12; font-size: 14px; }
+        .hidden {
+            display: none !important;
+        }
 
-.checkbox-label .ball {
-    background-color: #fff;
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    left: 3px;
-    top: 3px;
-    border-radius: 50%;
-    transition: transform 0.25s ease;
-}
+        /* Coffin button page styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-.checkbox:checked + .checkbox-label .ball {
-    transform: translateX(25px);
-}
-</style>
+        body {
+            background: linear-gradient(135deg, #6a0dad, #9b30ff);
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .ball {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+        }
+
+        .ball-1 {
+            width: 200px;
+            height: 200px;
+            background: #00ccff;
+            top: 10%;
+            left: 15%;
+        }
+
+        .ball-2 {
+            width: 300px;
+            height: 300px;
+            background: #ff00cc;
+            bottom: 15%;
+            right: 10%;
+        }
+
+        .ball-3 {
+            width: 150px;
+            height: 150px;
+            background: #00ff99;
+            top: 50%;
+            right: 40%;
+        }
+
+        .card {
+            position: relative;
+            z-index: 1;
+            background: #1e1e1e;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            padding: 40px 60px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        .content-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .button {
+            width: 120px;
+            height: 120px;
+            background: url("4f8dba9b-ca3c-4a68-80dd-6c0143071064.png") no-repeat center/cover;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        .button:active {
+            transform: scale(0.92);
+        }
+
+        footer {
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
 
-<input type="checkbox" class="checkbox" id="checkbox">
-<label for="checkbox" class="checkbox-label">
-    <i class="fas fa-moon"></i>
-    <i class="fas fa-sun"></i>
-    <span class="ball"></span>
-</label>
+    <!-- Cookie Consent Overlay -->
+    <div id="cookieOverlay" class="cookie-overlay hidden" role="dialog" aria-modal="true" aria-label="Cookie information">
+        <div class="cookie-panel" role="document">
+            <h2 class="cookie-title">Cookies we use</h2>
+            <div class="cookie-body">
+                Cookies are used for:
+                <ul class="cookie-list">
+                    <li>Collecting site analytics and traffic data (Google Analytics)</li>
+                    <li>Cloudflair stuff</li>
+                </ul>
+                By clicking "Okay" you accept these cookies.
+            </div>
+            <div class="cookie-actions">
+                <button id="detailsBtn" class="cookie-btn cookie-btn-details" type="button">Details</button>
+                <button id="okayBtn" class="cookie-btn cookie-btn-okay" type="button">Okay</button>
+            </div>
+        </div>
+    </div>
 
-<h1>Press In Dier Situations</h1>
-<img src="coffin.jpg" alt="Coffin Image">
-<iframe width="120" height="210" src="https://www.myinstants.com/instant/coffin-dance-meme-31063/embed/" frameborder="0" scrolling="no"></iframe>
+    <!-- Coffin Button Card -->
+    <div class="background">
+        <div class="ball ball-1"></div>
+        <div class="ball ball-2"></div>
+        <div class="ball ball-3"></div>
+    </div>
 
-<footer>
-    <a href="https://linktr.ee/mrbouquet" target="_blank">Made by Mr_Bouquet</a>
-    <a href="https://github.com/mrbouquet69/SoundButton" target="_blank">Open Source on Github (License May Apply)</a>
-</footer>
+    <div class="card">
+        <h1>Press In Dier Situations</h1>
+        <div class="content-row">
+            <img src="coffin.jpg" alt="Coffin Image">
+            <button class="button" id="soundButton"></button>
+        </div>
+        <footer>
+            <a href="https://linktr.ee/mrbouquet" target="_blank">Made by Mr_Bouquet</a><br>
+            <a href="https://github.com/mrbouquet69/SoundButton" target="_blank">Open Source on Github (License May Apply)</a>
+        </footer>
+    </div>
 
-<script>
-const checkbox = document.getElementById("checkbox");
-checkbox.addEventListener("change", () => {
-  document.body.classList.toggle("dark");
-});
-</script>
+    <audio id="coffinSound" src="coffin.mp3"></audio>
+
+    <script>
+        (function() {
+            function getCookie(name) {
+                var m = document.cookie.match('(?:^|; )' + name + '=([^;]*)');
+                return m ? decodeURIComponent(m[1]) : null;
+            }
+
+            function setCookie(name, value, days) {
+                var s = '';
+                if (days) {
+                    s = '; max-age=' + (days * 24 * 60 * 60);
+                }
+                document.cookie = name + '=' + encodeURIComponent(value) + s + '; path=/; SameSite=Lax';
+            }
+
+            var overlay = document.getElementById('cookieOverlay');
+            var okay = document.getElementById('okayBtn');
+            var details = document.getElementById('detailsBtn');
+
+            if (!getCookie('cookie_consent_v1')) {
+                overlay.classList.remove('hidden');
+                overlay.querySelector('.cookie-panel').focus();
+            }
+
+            okay.addEventListener('click', function() {
+                setCookie('cookie_consent_v1', 'accepted', 365);
+                overlay.classList.add('hidden');
+            });
+
+            details.addEventListener('click', function() {
+                alert('Google Ads cookies: used to personalise and measure ads.\nGoogle Analytics cookies: used to collect session and traffic data.\nOther cookies: site preferences and sessions.');
+            });
+        })();
+
+        const btn = document.getElementById("soundButton");
+        const audio = document.getElementById("coffinSound");
+        btn.addEventListener("click", () => {
+            audio.currentTime = 0;
+            audio.play().catch(() => console.warn("Audio file not found or blocked by browser."));
+        });
+    </script>
 
 </body>
+
 </html>
