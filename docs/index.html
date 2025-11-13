@@ -1,10 +1,9 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Coffindanceing.org</title>
+    <title>CoffinDanceing.org</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text y=%2214%22 font-size=%2216%22>💀</text></svg>">
     <style>
         :root {
@@ -88,13 +87,13 @@
             color: var(--muted);
         }
 
-        @media (max-width: 420px) {
+        @media (max-width:420px) {
             .cookie-panel {
-                padding: 16px;
+                padding: 16px
             }
 
             .cookie-title {
-                font-size: 16px;
+                font-size: 16px
             }
         }
 
@@ -165,31 +164,28 @@
             background: #1e1e1e;
             border-radius: 20px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-            padding: 20px;
+            padding: 40px 20px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
-            max-width: 90%;
-            margin: auto;
+            gap: 25px;
         }
 
         h1 {
-            font-size: 1.5em;
+            font-size: 2em;
         }
 
         .content-row {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         img {
-            width: 100%;
-            max-width: 200px;
+            width: 150px;
             height: auto;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
@@ -287,13 +283,13 @@
             var okay = document.getElementById('okayBtn');
             var details = document.getElementById('detailsBtn');
 
-            if (!getCookie('cookie_consent_v1')) {
+            if (!localStorage.getItem('cookie_consent_v1')) {
                 overlay.classList.remove('hidden');
                 overlay.querySelector('.cookie-panel').focus();
             }
 
             okay.addEventListener('click', function() {
-                setCookie('cookie_consent_v1', 'accepted', 365);
+                localStorage.setItem('cookie_consent_v1', 'accepted');
                 overlay.classList.add('hidden');
             });
 
